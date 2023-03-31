@@ -1,5 +1,30 @@
 <p align="center"><img src="buildroot/share/pixmaps/logo/marlin-outrun-nf-500.png" height="250" alt="MarlinFirmware's logo" /></p>
 
+This is a customised version of Marlin for the Ender 5 Plus to work with the BTT SKR 3 mainboard and using the stock LCD. 
+
+The stock LCD needs to be flashed with a custom LCD firmware available from https://github.com/Desuuuu/DGUS-reloaded/wiki/Flashing-the-firmware or it will not work with anything other than the stock main board, and the very buggy and outdated version of Marlin that Creality created 5,000 years ago.
+
+The LCD will also need the cable modifying to fit the SKR e3 v3 mainboard, this is a very simple modification and can be done in several ways. 
+Link to board diagram: https://imgur.com/a/Egt5VFN
+Link to Ender 5 Plus touchscreen pins: https://imgur.com/rGRCmfs   (Thanks to u/DodgeDeBoulet on Reddit)
+
+-The TX on the display goes to the RX on the board, and the RX on the Display goes to the TX on the board.
+
+ - Ground to Ground (GND to GND)
+ - TX on display to RX on mainboard
+ - RX on display to TX on mainboard
+ - 5 volt to 5 volt (5V to 5V)
+ - Ignore Reset on mainboard (RST)
+
+I have made the compiled Firmware.bin file available in the root of this repo, so you can just copy it onto a micro SD card, plug it into the SKR e3 v3 and power on. Once it stops flashing, power it off, remove the SD card and it will be ready to use. - To double check if the firmware flashed, plug the SD card back into your PC and check if the file has been changed to a .cur / cursor file.
+
+Hope this helps a lot of people save money when they choose to upgrade/replace their main boards, so they're not pushed into purchasing a non-needed, and non-fitting, LCD (like the tft35) :)
+
+Feel free to comment or reach out if you need assitance with anything, or want to leave me any feedback. I thrive on feedback of any kind, so be as blunt and direct or harsh as you feel like. It'll help make a better build for everyone :) 
+
+If you wish to support me and this build of Marlin for the Ender 5 Plus, feel free to tip me using paypal at, https://paypal.me/Rayyan0143?country.x=GB&locale.x=en_GB
+
+
 <h1 align="center">Marlin 3D Printer Firmware</h1>
 
 <p align="center">
@@ -9,40 +34,33 @@
     <a href="https://github.com/MarlinFirmware/Marlin/actions"><img alt="CI Status" src="https://github.com/MarlinFirmware/Marlin/actions/workflows/test-builds.yml/badge.svg"></a>
     <a href="https://github.com/sponsors/thinkyhead"><img alt="GitHub Sponsors" src="https://img.shields.io/github/sponsors/thinkyhead?color=db61a2"></a>
     <br />
-    <a href="https://fosstodon.org/@marlinfirmware"><img alt="Follow MarlinFirmware on Mastodon" src="https://img.shields.io/mastodon/follow/109450200866020466?domain=https%3A%2F%2Ffosstodon.org&logoColor=%2300B&style=social"></a>
+    <a href="https://twitter.com/MarlinFirmware"><img alt="Follow MarlinFirmware on Twitter" src="https://img.shields.io/twitter/follow/MarlinFirmware?style=social&logo=twitter"></a>
 </p>
 
 Additional documentation can be found at the [Marlin Home Page](https://marlinfw.org/).
 Please test this firmware and let us know if it misbehaves in any way. Volunteers are standing by!
 
-## Marlin 2.1
+## Marlin 2.1 Bugfix Branch
 
-Marlin 2.1 continues to support both 32-bit ARM and 8-bit AVR boards while adding support for up to 9 coordinated axes and to up to 8 extruders.
+__Not for production use. Use with caution!__
+
+Marlin 2.1 takes this popular RepRap firmware to the next level by adding support for much faster 32-bit and ARM-based boards while improving support for 8-bit AVR boards. Read about Marlin's decision to use a "Hardware Abstraction Layer" below.
+
+This branch is for patches to the latest 2.1.x release version. Periodically this branch will form the basis for the next minor 2.1.x release.
 
 Download earlier versions of Marlin on the [Releases page](https://github.com/MarlinFirmware/Marlin/releases).
 
 ## Example Configurations
 
-Before you can build Marlin for your machine you'll need a configuration for your specific hardware. Upon request, your vendor will be happy to provide you with the complete source code and configurations for your machine, but you'll need to get updated configuration files if you want to install a newer version of Marlin. Fortunately, Marlin users have contributed dozens of tested configurations to get you started. Visit the [MarlinFirmware/Configurations](https://github.com/MarlinFirmware/Configurations) repository to find the right configuration for your hardware.
+Before building Marlin you'll need to configure it for your specific hardware. Your vendor should have already provided source code with configurations for the installed firmware, but if you ever decide to upgrade you'll need updated configuration files. Marlin users have contributed dozens of tested example configurations to get you started. Visit the [MarlinFirmware/Configurations](https://github.com/MarlinFirmware/Configurations) repository to find the right configuration for your hardware.
 
 ## Building Marlin 2.1
 
-To build and upload Marlin you will use one of these tools:
-
-- The free [Visual Studio Code](https://code.visualstudio.com/download) using the [Auto Build Marlin](https://marlinfw.org/docs/basics/auto_build_marlin.html) extension.
-- The free [Arduino IDE](https://www.arduino.cc/en/main/software) : See [Building Marlin with Arduino](https://marlinfw.org/docs/basics/install_arduino.html)
-
-Marlin is optimized to build with the **PlatformIO IDE** extension for **Visual Studio Code**. You can still build Marlin with **Arduino IDE**, and we hope to improve the Arduino build experience, but at this time PlatformIO is the better choice.
+To build Marlin 2.1 you'll need [Arduino IDE 1.8.8 or newer](https://www.arduino.cc/en/main/software) or [PlatformIO](https://docs.platformio.org/en/latest/ide.html#platformio-ide). We've posted detailed instructions on [Building Marlin with Arduino](https://marlinfw.org/docs/basics/install_arduino.html) and [Building Marlin with PlatformIO for ReArm](https://marlinfw.org/docs/basics/install_rearm.html) (which applies well to other 32-bit boards).
 
 ## Hardware Abstraction Layer (HAL)
 
-Marlin includes an abstraction layer to provide a common API for all the platforms it targets. This allows Marlin code to address the details of motion and user interface tasks at the lowest and highest levels with no system overhead, tying all events directly to the hardware clock.
-
-Every new HAL opens up a world of hardware. At this time we need HALs for RP2040 and the Duet3D family of boards. A HAL that wraps an RTOS is an interesting concept we would can explore. Did you know that Marlin includes a Simulator that can run on Windows, macOS, and Linux? Join the Discord to help move these sub-projects forward!
-
-## 8-Bit AVR Boards
-
-A core tenet of this project is to keep supporting 8-bit AVR boards while also maintaining a single codebase that applies equally to all machines. We want casual hobbyists to benefit from the community's innovations as much as possible just as much as those with fancier machines. Plus, those old AVR-based machines are often the best for your testing and feedback!
+Marlin 2.0 introduced a layer of abstraction to allow all the existing high-level code to be built for 32-bit platforms while still retaining full 8-bit AVR compatibility. Retaining AVR compatibility and a single code-base is important to us, because we want to make sure that features and patches get as much testing and attention as possible, and that all platforms always benefit from the latest improvements.
 
 ### Supported Platforms
 
@@ -70,6 +88,7 @@ A core tenet of this project is to keep supporting 8-bit AVR boards while also m
 
 Proposed patches should be submitted as a Pull Request against the ([bugfix-2.1.x](https://github.com/MarlinFirmware/Marlin/tree/bugfix-2.1.x)) branch.
 
+- This branch is for fixing bugs and integrating any new features for the duration of the Marlin 2.0.x life-cycle.
 - Follow the [Coding Standards](https://marlinfw.org/docs/development/coding_standards.html) to gain points with the maintainers.
 - Please submit Feature Requests and Bug Reports to the [Issue Queue](https://github.com/MarlinFirmware/Marlin/issues/new/choose). Support resources are also listed there.
 - Whenever you add new features, be sure to add tests to `buildroot/tests` and then run your tests locally, if possible.
