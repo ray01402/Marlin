@@ -1,10 +1,10 @@
 <p align="center"><img src="buildroot/share/pixmaps/logo/marlin-outrun-nf-500.png" height="250" alt="MarlinFirmware's logo" /></p>
 
-This is a customised version of Marlin for the Ender 5 Plus to work with the BTT SKR 3 mainboard and using the stock LCD. 
+This is a customised version of Marlin for the Ender 5 Plus to work with the BTT SKR MINI E3 V3 mainboard and using the stock LCD. 
 
 The stock LCD needs to be flashed with a custom LCD firmware available from https://github.com/Desuuuu/DGUS-reloaded/wiki/Flashing-the-firmware or it will not work with anything other than the stock main board, and the very buggy and outdated version of Marlin that Creality created 5,000 years ago.
 
-The LCD will also need the cable modifying to fit the SKR e3 v3 mainboard, this is a very simple modification and can be done in several ways. 
+The LCD will also need the cable modifying to fit the BTT SKR MINI E3 V3 mainboard, this is a very simple modification and can be done in several ways. 
 Link to board diagram: https://imgur.com/a/Egt5VFN
 Link to Ender 5 Plus touchscreen pins: https://imgur.com/rGRCmfs   (Thanks to u/DodgeDeBoulet on Reddit)
 
@@ -16,7 +16,7 @@ Link to Ender 5 Plus touchscreen pins: https://imgur.com/rGRCmfs   (Thanks to u/
  - 5 volt to 5 volt (5V to 5V)
  - Ignore Reset on mainboard (RST)
 
-I have made the compiled Firmware.bin file available in the root of this repo, so you can just copy it onto a micro SD card, plug it into the SKR e3 v3 and power on. Once it stops flashing, power it off, remove the SD card and it will be ready to use. - To double check if the firmware flashed, plug the SD card back into your PC and check if the file has been changed to a .cur / cursor file.
+I have made the compiled Firmware.bin file available in the root of this repo, so you can just copy it onto a micro SD card, plug it into the SKR MINI E3 V3 and power on. Once it stops flashing, power it off, remove the SD card and it will be ready to use. - To double check if the firmware flashed, plug the SD card back into your PC and check if the file has been changed to a .cur / cursor file.
 
 Hope this helps a lot of people save money when they choose to upgrade/replace their main boards, so they're not pushed into purchasing a non-needed, and non-fitting, LCD (like the tft35) :)
 
