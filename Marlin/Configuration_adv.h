@@ -652,7 +652,7 @@
 #define CHAMBER_AUTO_FAN_PIN -1
 #define COOLER_AUTO_FAN_PIN -1
 
-#define EXTRUDER_AUTO_FAN_TEMPERATURE 50 //R
+#define EXTRUDER_AUTO_FAN_TEMPERATURE 40 //R
 #define EXTRUDER_AUTO_FAN_SPEED 255   // 255 == full speed //R
 #define CHAMBER_AUTO_FAN_TEMPERATURE 30 //R
 #define CHAMBER_AUTO_FAN_SPEED 255 //R
@@ -1081,8 +1081,8 @@
  *  X<1>         Set the given parameters only for the X axis.
  *  Y<1>         Set the given parameters only for the Y axis.
  */
-#define INPUT_SHAPING_X //R
-#define INPUT_SHAPING_Y //R
+//#define INPUT_SHAPING_X //R
+//#define INPUT_SHAPING_Y //R
 #if EITHER(INPUT_SHAPING_X, INPUT_SHAPING_Y) //R
   #if ENABLED(INPUT_SHAPING_X)
     #define SHAPING_FREQ_X  16.78    // (Hz) The default dominant resonant frequency on the X axis. //R
