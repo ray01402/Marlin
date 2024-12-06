@@ -28,10 +28,6 @@
 #include "../../module/planner.h"
 #include "../../module/stepper.h" // for various
 
-#if HAS_HOMING_CURRENT
-  #include "../../module/motion.h" // for set/restore_homing_current
-#endif
-
 #if HAS_MULTI_HOTEND
   #include "../../module/tool_change.h"
 #endif
@@ -48,9 +44,7 @@
   #include "../../feature/tmc_util.h"
 #endif
 
-#if HAS_BED_PROBE
-  #include "../../module/probe.h"
-#endif
+#include "../../module/probe.h"
 
 #if ENABLED(BLTOUCH)
   #include "../../feature/bltouch.h"
@@ -130,7 +124,14 @@
      * (Z is already at the right height)
      */
     constexpr xy_float_t safe_homing_xy = { Z_SAFE_HOMING_X_POINT, Z_SAFE_HOMING_Y_POINT };
-    destination.set(safe_homing_xy, current_position.z);
+    #if HAS_HOME_OFFSET
+      xy_float_t okay_homing_xy = safe_homing_xy;
+      okay_homing_xy -= home_offset;
+    #else
+      constexpr xy_float_t okay_homing_xy = safe_homing_xy;
+    #endif
+
+    destination.set(okay_homing_xy, current_position.z);
 
     TERN_(HOMING_Z_WITH_PROBE, destination -= probe.offset_xy);
 
@@ -502,7 +503,7 @@ void GcodeSuite::G28() {
           #else
             homeaxis(Z_AXIS);
           #endif
-          TERN_(HAS_BED_PROBE, probe.move_z_after_homing());
+          probe.move_z_after_homing();
         }
       #endif
 

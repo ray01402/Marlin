@@ -36,7 +36,7 @@
 #include "../module/stepper.h"
 #include "../gcode/parser.h"
 
-#include "babystep.h"
+#include "../feature/babystep.h"
 
 #include <Wire.h>
 

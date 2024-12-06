@@ -23,7 +23,8 @@
 
 /**
  * Anet V1.0 board pin assignments
- * Schematic: https://github.com/ralf-e/ANET-3D-Board-V1.0/blob/master/ANET3D_Board_Schematic.pdf
+ * Schematic: https://green-candy.osdn.jp/external/MarlinFW/board_schematics/Anet%20V1.0/ANET3D_Board_Schematic.pdf
+ * Origin: https://github.com/ralf-e/ANET-3D-Board-V1.0/blob/master/ANET3D_Board_Schematic.pdf
  */
 
 /**
@@ -51,14 +52,20 @@
  */
 
 /**
- * Requires this Arduino IDE extension for Boards Manager:
+ * Another usable Arduino IDE extension (Boards Manager) can be found at
  * https://github.com/Lauszus/Sanguino
  *
- * Follow the installation instructions at https://learn.sparkfun.com/pages/CustomBoardsArduino
- * Just use this JSON URL instead of Sparkfun's:
+ * This extension has been tested on Arduino 1.6.12 & 1.8.0
+ *
+ * Here's the JSON path:
  * https://raw.githubusercontent.com/Lauszus/Sanguino/master/package_lauszus_sanguino_index.json
  *
- * Once installed select the SANGUINO board and then select the CPU.
+ * When installing select 1.0.2
+ *
+ * Installation instructions can be found at https://learn.sparkfun.com/pages/CustomBoardsArduino
+ * Just use the above JSON URL instead of Sparkfun's JSON.
+ *
+ * Once installed select the Sanguino board and then select the CPU.
  */
 
 /**
@@ -200,7 +207,7 @@
   #elif IS_RRD_FG_SC
 
     // Pin definitions for the Anet A6 Full Graphics display and the RepRapDiscount Full Graphics
-    // display using an adapter board. See https://aisler.net/benlye/anet-lcd-adapter/pcb
+    // display using an adapter board. See https://go.aisler.net/benlye/anet-lcd-adapter/pcb
     // See below for alternative pin definitions for use with https://www.thingiverse.com/thing:2103748
 
     #if ENABLED(ANET_FULL_GRAPHICS_LCD_ALT_WIRING)
@@ -299,8 +306,8 @@
  * ====================================================================
  *
  *   Anet V1.0 controller           | ZONESTAR_LCD      | ANET_FULL_   | RepRapDiscount Full     | Thingiverse RepRap wiring
- *   physical   logical   alt       |                   | GRAPHICS_LCD | Graphics Display Wiring | https://www.thingiverse.com/thing:2103748
- *     pin        pin     functions |                   |              |                         |
+ *   physical   logical   alt       |                   | GRAPHICS_LCD | Graphics Display Wiring | https://www.thingiverse
+ *     pin        pin     functions |                   |              |                         | .com/thing:2103748
  *--------------------------------------------------------------------------------------------------------------------
  *   ANET-J3.1    8 ***             | N/A               | J3_TX ***    |                         |
  *   ANET-J3.2    9 ***             | N/A               | J3_RX ***    |                         |

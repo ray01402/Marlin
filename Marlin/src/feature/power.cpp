@@ -175,7 +175,7 @@ void Power::power_off() {
   /**
    * Check all conditions that would signal power needing to be on.
    *
-   * @return bool  if power is needed
+   * @returns bool  if power is needed
    */
   bool Power::is_power_needed() {
 

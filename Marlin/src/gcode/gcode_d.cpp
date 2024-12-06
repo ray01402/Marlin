@@ -99,7 +99,6 @@ void GcodeSuite::D(const int16_t dcode) {
     } break;
 
     #if ENABLED(EEPROM_SETTINGS)
-
       case 3: { // D3 Read / Write EEPROM
         uint8_t *pointer = parser.hex_adr_val('A');
         uint16_t len = parser.ushortval('C', 1);
@@ -108,27 +107,35 @@ void GcodeSuite::D(const int16_t dcode) {
         NOMORE(len, persistentStore.capacity() - addr);
         if (parser.seenval('X')) {
           uint16_t val = parser.hex_val('X');
-          persistentStore.access_start();
-          while (len--) {
-            int pos = 0;
-            persistentStore.write_data(pos, (uint8_t *)&val, sizeof(val));
-          }
-          SERIAL_EOL();
-          persistentStore.access_finish();
+          #if ENABLED(EEPROM_SETTINGS)
+            persistentStore.access_start();
+            while (len--) {
+              int pos = 0;
+              persistentStore.write_data(pos, (uint8_t *)&val, sizeof(val));
+            }
+            SERIAL_EOL();
+            persistentStore.access_finish();
+          #else
+            SERIAL_ECHOLNPGM("NO EEPROM");
+          #endif
         }
         else {
           // Read bytes from EEPROM
-          persistentStore.access_start();
-          int pos = 0;
-          uint8_t val;
-          while (len--) if (!persistentStore.read_data(pos, &val, 1)) print_hex_byte(val);
-          SERIAL_EOL();
-          persistentStore.access_finish();
+          #if ENABLED(EEPROM_SETTINGS)
+            persistentStore.access_start();
+            int pos = 0;
+            uint8_t val;
+            while (len--) if (!persistentStore.read_data(pos, &val, 1)) print_hex_byte(val);
+            SERIAL_EOL();
+            persistentStore.access_finish();
+          #else
+            SERIAL_ECHOLNPGM("NO EEPROM");
+            len = 0;
+          #endif
           SERIAL_EOL();
         }
       } break;
-
-    #endif // EEPROM_SETTINGS
+    #endif
 
     case 4: { // D4 Read / Write PIN
       //const bool is_out = parser.boolval('F');

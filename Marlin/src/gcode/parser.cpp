@@ -115,7 +115,9 @@ void GCodeParser::parse(char *p) {
   reset(); // No codes to report
 
   auto uppercase = [](char c) {
-    return TERN0(GCODE_CASE_INSENSITIVE, WITHIN(c, 'a', 'z')) ? c + 'A' - 'a' : c;
+    if (TERN0(GCODE_CASE_INSENSITIVE, WITHIN(c, 'a', 'z')))
+      c += 'A' - 'a';
+    return c;
   };
 
   // Skip spaces

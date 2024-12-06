@@ -35,7 +35,7 @@
 #endif
 
 #if ENABLED(I2C_AMMETER)
-  #include "ammeter.h"
+  #include "../feature/ammeter.h"
 #endif
 
 SpindleLaser cutter;

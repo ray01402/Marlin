@@ -23,6 +23,7 @@
 
 /**
  * AZSMZ MINI pin assignments
+ * Schematic: http://green-candy.osdn.jp/external/MarlinFW/board_schematics/AZSMZ%20MINI/AZSMZ.svg
  * Source: https://raw.githubusercontent.com/Rose-Fish/AZSMZ-mini/master/AZSMZ.sch
  */
 

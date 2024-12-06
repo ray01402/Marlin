@@ -34,7 +34,6 @@
 #ifndef BOARD_INFO_NAME
   #define BOARD_INFO_NAME "BTT EBB42 V1.1"
 #endif
-#define BOARD_WEBSITE_URL "github.com/bigtreetech/EBB/tree/master/EBB%20CAN%20V1.1%20(STM32G0B1)/EBB42%20CAN%20V1.1"
 
 //
 // EEPROM
@@ -97,6 +96,7 @@
   //#define TMC_BAUD_RATE 250000
 
   #define E0_SERIAL_TX_PIN                  PA15
+  #define E0_SERIAL_RX_PIN      E0_SERIAL_TX_PIN
 
   // Reduce baud rate to improve software serial reliability
   #ifndef TMC_BAUD_RATE
@@ -105,9 +105,8 @@
 
   // Default TMC slave addresses
   #ifndef E0_SLAVE_ADDRESS
-    #define E0_SLAVE_ADDRESS                0
+    #define E0_SLAVE_ADDRESS 0b00
   #endif
-  static_assert(E0_SLAVE_ADDRESS == 0, "E0_SLAVE_ADDRESS must be 0 for BOARD_BTT_EBB42_V1_1.");
 #endif
 
 //
@@ -134,8 +133,8 @@
 //
 // Default NEOPIXEL_PIN
 //
-#ifndef BOARD_NEOPIXEL_PIN
-  #define BOARD_NEOPIXEL_PIN                PD3   // LED driving pin
+#ifndef NEOPIXEL_PIN
+  #define NEOPIXEL_PIN                      PD3   // LED driving pin
 #endif
 
 //

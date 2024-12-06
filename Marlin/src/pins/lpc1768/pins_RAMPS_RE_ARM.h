@@ -23,7 +23,8 @@
 
 /**
  * Re-ARM with RAMPS v1.4 pin assignments
- * Schematic: https://reprap.org/mediawiki/images/f/fa/Re_ARM_Schematic.pdf
+ * Schematic: https://green-candy.osdn.jp/external/MarlinFW/board_schematics/Re-ARM%20RAMPS%201.4/Re_ARM_Schematic.pdf
+ * Origin: https://reprap.org/mediawiki/images/f/fa/Re_ARM_Schematic.pdf
  *
  * Applies to the following boards:
  *
@@ -124,17 +125,29 @@
   #ifndef X_SERIAL_TX_PIN
     #define X_SERIAL_TX_PIN                P0_01
   #endif
+  #ifndef X_SERIAL_RX_PIN
+    #define X_SERIAL_RX_PIN      X_SERIAL_TX_PIN
+  #endif
 
   #ifndef Y_SERIAL_TX_PIN
     #define Y_SERIAL_TX_PIN                P0_00
+  #endif
+  #ifndef Y_SERIAL_RX_PIN
+    #define Y_SERIAL_RX_PIN      Y_SERIAL_TX_PIN
   #endif
 
   #ifndef Z_SERIAL_TX_PIN
     #define Z_SERIAL_TX_PIN                P2_13
   #endif
+  #ifndef Z_SERIAL_RX_PIN
+    #define Z_SERIAL_RX_PIN      Z_SERIAL_TX_PIN
+  #endif
 
   #ifndef E0_SERIAL_TX_PIN
     #define E0_SERIAL_TX_PIN               P2_08
+  #endif
+  #ifndef E0_SERIAL_RX_PIN
+    #define E0_SERIAL_RX_PIN    E0_SERIAL_TX_PIN
   #endif
 
   // Reduce baud rate to improve software serial reliability
@@ -175,14 +188,14 @@
 
 #define HEATER_0_PIN                MOSFET_A_PIN
 
-#if ENABLED(FET_ORDER_EFB)                        // Hotend, Fan, Bed
+#if FET_ORDER_EFB                                 // Hotend, Fan, Bed
   #define HEATER_BED_PIN            MOSFET_C_PIN
-#elif ENABLED(FET_ORDER_EEF)                      // Hotend, Hotend, Fan
+#elif FET_ORDER_EEF                               // Hotend, Hotend, Fan
   #define HEATER_1_PIN              MOSFET_B_PIN
-#elif ENABLED(FET_ORDER_EEB)                      // Hotend, Hotend, Bed
+#elif FET_ORDER_EEB                               // Hotend, Hotend, Bed
   #define HEATER_1_PIN              MOSFET_B_PIN
   #define HEATER_BED_PIN            MOSFET_C_PIN
-#elif ENABLED(FET_ORDER_EFF)                      // Hotend, Fan, Fan
+#elif FET_ORDER_EFF                               // Hotend, Fan, Fan
   #define FAN1_PIN                  MOSFET_C_PIN
 #elif DISABLED(FET_ORDER_SF)                      // Not Spindle, Fan (i.e., "EFBF" or "EFBE")
   #define HEATER_BED_PIN            MOSFET_C_PIN
@@ -198,7 +211,7 @@
     #define FAN0_PIN                MOSFET_B_PIN
   #elif ANY(FET_ORDER_EEF, FET_ORDER_SF)          // Hotend, Hotend, Fan or Spindle, Fan
     #define FAN0_PIN                MOSFET_C_PIN
-  #elif ENABLED(FET_ORDER_EEB)                    // Hotend, Hotend, Bed
+  #elif FET_ORDER_EEB                             // Hotend, Hotend, Bed
     #define FAN0_PIN                       P1_18  // (4) IO pin. Buffer needed
   #else                                           // Non-specific are "EFB" (i.e., "EFBF" or "EFBE")
     #define FAN0_PIN                MOSFET_B_PIN
@@ -295,7 +308,9 @@
 
 #elif ENABLED(ZONESTAR_LCD)
 
-  CONTROLLER_WARNING("RAMPS_RE_ARM", "ZONESTAR_LCD", " ADCs are not 5V tolerant.")
+  #ifndef NO_CONTROLLER_CUSTOM_WIRING_WARNING
+    #error "CAUTION! ZONESTAR_LCD on REARM requires wiring modifications. NB. ADCs are not 5V tolerant. See 'pins_RAMPS_RE_ARM.h' for details. (Define NO_CONTROLLER_CUSTOM_WIRING_WARNING to suppress this warning.)"
+  #endif
 
 #elif IS_TFTGLCD_PANEL
 
